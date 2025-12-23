@@ -1,0 +1,248 @@
+/* ===================== RESET ===================== */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Inter', 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto;
+}
+
+/* ===================== VARIABLES ===================== */
+:root {
+  --bg-1: #eef4ff;
+  --bg-2: #f8fbff;
+
+  --glow-blue: rgba(99,102,241,0.35);
+  --glow-cyan: rgba(56,189,248,0.35);
+
+  --card-start: rgba(255,255,255,0.75);
+  --card-end: rgba(255,255,255,0.95);
+
+  --accent: #2563eb;
+  --accent-soft: rgba(37,99,235,0.15);
+
+  --text-dark: #0f172a;
+  --text-muted: #64748b;
+}
+
+/* ===================== PAGE ===================== */
+.upload-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background:
+    radial-gradient(900px 500px at 15% 20%, var(--glow-blue), transparent 60%),
+    radial-gradient(800px 450px at 85% 80%, var(--glow-cyan), transparent 60%),
+    linear-gradient(135deg, var(--bg-1), var(--bg-2));
+  position: relative;
+  overflow: hidden;
+}
+
+/* decorative glow blobs */
+.upload-container::before,
+.upload-container::after {
+  content: '';
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  filter: blur(80px);
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+.upload-container::before {
+  top: -15%;
+  left: -12%;
+  background: radial-gradient(circle, rgba(96,165,250,.18), transparent 60%);
+}
+
+.upload-container::after {
+  bottom: -15%;
+  right: -12%;
+  background: radial-gradient(circle, rgba(14,165,233,.18), transparent 60%);
+}
+
+/* ===================== CARD ===================== */
+.upload-card {
+  background: linear-gradient(180deg, var(--card-start), var(--card-end));
+  backdrop-filter: blur(14px);
+  border-radius: 20px;
+  padding: 26px;
+  width: min(920px, 96vw);
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 20px;
+  box-shadow:
+    0 20px 50px rgba(15,23,42,0.08),
+    0 0 60px rgba(99,102,241,0.15),
+    inset 0 0 0 1px rgba(255,255,255,0.6);
+  border: 1px solid rgba(37,99,235,0.12);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===================== TITLE ===================== */
+.title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  text-align: center;
+  grid-column: 1 / -1;
+  margin-bottom: 16px;
+  transition: color 0.25s ease;
+}
+
+/* ===================== UPLOAD AREA ===================== */
+.upload-area {
+  border-radius: 16px;
+  min-height: 180px;
+  padding: 26px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 1px dashed rgba(37,99,235,0.35);
+  background: linear-gradient(180deg, rgba(255,255,255,0.65), rgba(255,255,255,0.85));
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.upload-area:hover {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 8px 25px rgba(37,99,235,0.15);
+}
+
+.upload-area:active {
+  transform: scale(0.98);
+  box-shadow: 0 4px 15px rgba(37,99,235,0.25);
+}
+
+.upload-area.dragover {
+  background: linear-gradient(180deg, rgba(37,99,235,0.08), rgba(37,99,235,0.04));
+  transform: scale(1.02);
+  box-shadow: 0 0 20px rgba(37,99,235,0.2);
+}
+
+/* ===================== INPUT ===================== */
+.upload-area input {
+  display: none;
+}
+
+.empty-title {
+  font-weight: 600;
+  color: var(--text-dark);
+  transition: color 0.25s ease;
+}
+
+.upload-subtext {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  transition: color 0.25s ease;
+}
+
+/* ===================== IMAGE PREVIEW ===================== */
+.preview-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.preview {
+  width: 100%;
+  max-height: 240px;
+  object-fit: contain;
+  border-radius: 12px;
+  margin-top: 12px;
+  border: 1px solid rgba(0,0,0,.05);
+  animation: fadeIn 0.5s ease-out;
+  transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ===================== REMOVE BUTTON ===================== */
+.remove-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(255, 255, 255, 0.85);
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font-size: 16px;
+  color: #2563eb;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+}
+
+.remove-btn:hover {
+  background: #ff4d4f;
+  color: #ffffff;
+  transform: scale(1.15);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+/* ===================== FILE META ===================== */
+.file-meta {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  transition: color 0.25s ease;
+}
+
+/* ===================== INSTRUCTIONS ===================== */
+.instructions {
+  height: 260px;
+  overflow: auto;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 14px;
+  border: 1px solid rgba(0,0,0,.06);
+  font-size: 13px;
+  margin-top: 60px;
+  transition: all 0.3s ease;
+}
+
+/* ===================== PROCESS BUTTON ===================== */
+.process-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  border: none;
+  background: linear-gradient(90deg, #38bdf8, #2563eb);
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+  margin-top: 12px;
+}
+
+.process-btn:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 12px 30px rgba(37,99,235,0.25);
+}
+
+.process-btn:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: 0 4px 12px rgba(37,99,235,0.2);
+}
+
+.process-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
