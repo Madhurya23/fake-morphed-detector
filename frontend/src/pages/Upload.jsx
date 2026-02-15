@@ -17,15 +17,43 @@ export default function Upload() {
     toast.success("Image selected!");
   };
 
-  const handleClassify = () => {
-    if (!file) return toast.error("Please select an image first!");
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      localStorage.setItem("uploadedImage", reader.result);
-      navigate("/result");
-    };
-    reader.readAsDataURL(file);
-  };
+const handleClassify = async () => {
+  if (!file) {
+    return toast.error("Please select an image first!");
+  }
+
+  const formData = new FormData();
+  formData.append("image", file);
+
+  try {
+    const response = await fetch("http://127.0.0.1:5000/predict", {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "Prediction failed");
+    }
+
+    // Create preview URL
+    const previewURL = URL.createObjectURL(file);
+
+    // Navigate to result page with backend data
+    navigate("/result", {
+      state: {
+        result: data,
+        image: previewURL,
+      },
+    });
+
+  } catch (error) {
+    console.error(error);
+    toast.error("Server error!");
+  }
+};
+
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">

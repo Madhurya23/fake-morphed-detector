@@ -12,28 +12,22 @@ import Footer from "../components/Footer";
 import DownloadReport from "../components/DownloadReport";
 import HowItWorks from "../components/HowItWorks";
 
+import { useLocation } from "react-router-dom";
+
 export default function Result() {
   const navigate = useNavigate();
-  const [image, setImage] = useState(null);
-  const [prediction, setPrediction] = useState(null);
+  const location = useLocation();
+
+  const { result, image } = location.state || {};
 
   useEffect(() => {
-    const img = localStorage.getItem("uploadedImage");
-    if (!img) return navigate("/upload");
-    setImage(img);
+    if (!result || !image) {
+      navigate("/upload");
+    }
+  }, [result, image, navigate]);
 
-    // Demo deterministic logic
-    const hash = img.length % 100;
-    const real = Math.max(5, 100 - hash);
-    const fake = Math.min(70, Math.floor(hash * 0.6));
-    const morphed = Math.max(3, 100 - real - fake);
-    let finalLabel = "Real";
-    if (fake > real) finalLabel = "Fake";
-    if (morphed > real) finalLabel = "Morphed";
-    setPrediction({ real, fake, morphed, finalLabel });
-  }, [navigate]);
+  if (!result || !image) return null;
 
-  if (!image || !prediction) return null;
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
@@ -72,16 +66,16 @@ export default function Result() {
               </h2>
 
               <div className="flex justify-center mb-4">
-                <RiskBadge label={prediction.finalLabel} />
+                <RiskBadge label={result.finalLabel} />
               </div>
 
               <div className="space-y-3">
-                <ConfidenceBar label="Real" value={prediction.real} color="bg-green-500" />
-                <ConfidenceBar label="Fake" value={prediction.fake} color="bg-red-500" />
-                <ConfidenceBar label="Morphed" value={prediction.morphed} color="bg-yellow-400" />
+                <ConfidenceBar label="Real" value={result.real} color="bg-green-500" />
+                <ConfidenceBar label="Fake" value={result.fake} color="bg-red-500" />
+                <ConfidenceBar label="Morphed" value={result.morphed} color="bg-yellow-400" />
               </div>
 
-              <DownloadReport image={image} prediction={prediction} />
+              <DownloadReport image={image} prediction={result} />
               <HowItWorks />
               <AnalysisSteps />
               <Disclaimer />
