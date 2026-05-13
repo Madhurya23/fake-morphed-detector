@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { motion } from "framer-motion";
-
+import { classifyImage } from "../services/API";
 import UploadDropzone from "../components/UploadDropzone";
 import Button from "../components/Button";
 import ImageMeta from "../components/ImageMeta";
@@ -22,25 +22,11 @@ const handleClassify = async () => {
     return toast.error("Please select an image first!");
   }
 
-  const formData = new FormData();
-  formData.append("image", file);
-
   try {
-    const response = await fetch("http://127.0.0.1:5000/predict", {
-      method: "POST",
-      body: formData,
-    });
+    const data = await classifyImage(file);
 
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.error || "Prediction failed");
-    }
-
-    // Create preview URL
     const previewURL = URL.createObjectURL(file);
 
-    // Navigate to result page with backend data
     navigate("/result", {
       state: {
         result: data,
@@ -53,7 +39,6 @@ const handleClassify = async () => {
     toast.error("Server error!");
   }
 };
-
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">

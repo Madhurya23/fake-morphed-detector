@@ -1,17 +1,50 @@
-// src/components/RiskBadge.jsx
-import React from "react";
+export default function RiskBadge({ label, type }) {
 
-export default function RiskBadge({ label }) {
-  const colors = {
-    Real: "bg-green-500",
-    Fake: "bg-red-500",
-    Morphed: "bg-yellow-400",
-  };
+  let styles = "";
+
+  if (type === "real") {
+
+    styles =
+      "bg-green-100 text-green-700 border border-green-300";
+
+  }
+
+  else if (type === "ai") {
+
+    styles =
+      "bg-yellow-100 text-yellow-700 border border-yellow-300";
+
+  }
+
+  else if (type === "morphed") {
+
+    styles =
+      "bg-red-100 text-red-700 border border-red-300";
+
+  }
+
+  else {
+
+    styles =
+      "bg-gray-100 text-gray-700 border border-gray-300";
+  }
+
   return (
-    <span
-      className={`px-4 py-2 font-semibold text-white rounded-full ${colors[label]} transition-transform transform hover:scale-105 hover:shadow-lg`}
+
+    <div
+      className={`
+        w-full
+        text-center
+        text-2xl
+        font-bold
+        py-4
+        rounded-xl
+        ${styles}
+      `}
     >
+
       {label}
-    </span>
+
+    </div>
   );
 }
