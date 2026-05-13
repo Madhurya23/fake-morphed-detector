@@ -401,15 +401,15 @@ def predict():
         # =========================
         # REAL
         # =========================
-        if real_score >= 85:
+        if real_score >= 75:
 
             return jsonify({
 
                 "real": round(real_score, 2),
 
-                "ai": 0,
+                "ai": round((100-real_score)/2,2),
 
-                "morphed": 0,
+                "morphed": round((100-real_score)/2,2),
 
                 "finalLabel": "real",
 
@@ -419,19 +419,21 @@ def predict():
         # =========================
         # UNCERTAIN
         # =========================
-        if fake_score < 85:
+        if fake_score < 75:
+
+            uncertain_part = fake_score / 2
 
             return jsonify({
 
                 "real": round(real_score, 2),
 
-                "ai": 0,
+                "ai": round(uncertain_part, 2),
 
-                "morphed": 0,
+                "morphed": round(uncertain_part, 2),
 
                 "finalLabel": "uncertain",
 
-                "confidence": round(fake_score, 2)
+                "confidence": round(real_score, 2)
             })
 
         # =========================
