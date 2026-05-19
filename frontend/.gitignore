@@ -22,3 +22,16 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+__pycache__/
+*.pyc
+
+uploads/
+heatmaps/
+
+node_modules/
+
+*.h5
+*.keras
+
+.env
