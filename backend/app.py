@@ -737,7 +737,15 @@ def predict():
         return jsonify({
             "error": str(e)
         }), 500
+    
+    finally:
 
+        if (
+            file_path and
+            os.path.exists(file_path)
+        ):
+
+            os.remove(file_path)
 # =====================================================
 # RUN SERVER
 # =====================================================
