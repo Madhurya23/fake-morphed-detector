@@ -563,7 +563,7 @@ def predict():
         # =====================================================
         # REAL IMAGE
         # =====================================================
-        if real_score >= 75:
+        if real_score >= 70:
 
             heatmap_filename = (
                 f"heatmap_{file.filename}"
@@ -609,7 +609,7 @@ def predict():
         # =====================================================
         # UNCERTAIN
         # =====================================================
-        if fake_score < 75:
+        if fake_score < 70:
 
             uncertain_part = fake_score / 2
 
