@@ -135,17 +135,17 @@ export default function Result() {
               {/* CONFIDENCE BARS */}
               <ConfidenceBar
                 label="Real"
-                value={normalizedResult.real}
+                value={normalizedResult.real.toFixed(1)}
               />
 
               <ConfidenceBar
                 label="AI Generated"
-                value={normalizedResult.ai}
+                value={normalizedResult.ai.toFixed(1)}
               />
 
               <ConfidenceBar
                 label="Morphed"
-                value={normalizedResult.morphed}
+                value={normalizedResult.morphed.toFixed(1)}
               />
 
               {/* DOWNLOAD REPORT */}

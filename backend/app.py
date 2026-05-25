@@ -519,7 +519,17 @@ def serve_heatmap(filename):
 def predict():
 
     try:
+          # DELETE OLD HEATMAPS
+        for old_file in os.listdir(HEATMAP_FOLDER):
 
+            old_file_path = os.path.join(
+                HEATMAP_FOLDER,
+                old_file
+            )
+
+            if os.path.isfile(old_file_path):
+
+                os.remove(old_file_path)
         # =====================================================
         # CHECK IMAGE
         # =====================================================
