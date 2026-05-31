@@ -613,7 +613,7 @@ def predict():
                 ),
 
                 "heatmap":
-                f"http://localhost:5000/heatmaps/{heatmap_filename}"
+                f"{request.host_url}heatmaps/{heatmap_filename}"
             })
 
         # =====================================================
@@ -656,12 +656,12 @@ def predict():
                 "finalLabel": "uncertain",
 
                 "confidence": round(
-                    real_score,
+                    max(real_score, fake_score),
                     2
                 ),
 
                 "heatmap":
-                f"http://localhost:5000/heatmaps/{heatmap_filename}"
+                f"{request.host_url}heatmaps/{heatmap_filename}"
             })
 
         # =====================================================
@@ -733,7 +733,7 @@ def predict():
             ),
 
             "heatmap":
-            f"http://localhost:5000/heatmaps/{heatmap_filename}"
+            f"{request.host_url}heatmaps/{heatmap_filename}"
         })
 
     except Exception as e:
@@ -761,4 +761,4 @@ def predict():
 # =====================================================
 if __name__ == "__main__":
 
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
