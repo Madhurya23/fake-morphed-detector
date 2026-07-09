@@ -146,7 +146,7 @@ export default function Contact() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.8 }}
         >
-          Thank you for using our Fake & Morphed Image Detection System.
+          Thank you for using VeriVision- our Fake & Morphed Image Detection System.
           We value your suggestions and feedback. Feel free to reach out
           using the contact details below or send us your comments through
           the feedback form.

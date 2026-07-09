@@ -42,7 +42,7 @@ export default function About() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.8 }}
         >
-          The Fake & Morphed Image Detector is an AI-powered application
+          VeriVision- Our Fake & Morphed Image Detector is an AI-powered application
           developed to identify authentic, AI-generated, and morphed facial
           images with high accuracy. The system employs a two-stage
           classification approach along with Grad-CAM visualization and
