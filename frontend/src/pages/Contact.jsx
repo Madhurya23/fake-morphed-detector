@@ -256,7 +256,6 @@ export default function Contact() {
     </motion.div>
   </div>
 )}
-      <Footer />
     </div>
   );
 }
