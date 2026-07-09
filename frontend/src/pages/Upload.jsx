@@ -65,7 +65,6 @@ export default function Upload() {
           </Button>
         </div>
       </main>
-      <Footer />
     </div>
   );
 }

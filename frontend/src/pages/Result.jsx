@@ -96,7 +96,11 @@ export default function Result() {
           </div>
         </Container>
       </main>
+<<<<<<< Updated upstream
       <Footer />
+=======
+
+>>>>>>> Stashed changes
     </div>
   );
 }
